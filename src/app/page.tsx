@@ -9,7 +9,7 @@ export default function Home() {
       <div className="container mx-auto grid grid-cols-12 gap-6 items-stretch ">
         {/* =========================== Left side: Current and daily forecast ========================= */}
         <div className="col-span-8">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 justify-between">
             <Overview/>
             <DailyForecast/>
           </div>

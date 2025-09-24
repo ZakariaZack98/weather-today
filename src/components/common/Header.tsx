@@ -1,15 +1,24 @@
+'use client'
 import React from "react";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setUnit, UnitType } from "@/redux/slices/unitSlice";
 
 const Header = () => {
+  const unit = useAppSelector(state => state.unit.value);
+  const dispatch = useAppDispatch();
+
+  const handleValueChange = (value: UnitType) => {
+    dispatch(setUnit(value))
+  } 
+
   return (
     <header className="container mx-auto flex justify-between items-center w-full">
       {/* ============ Logo side ============ */}
@@ -24,13 +33,13 @@ const Header = () => {
         <p className="text-2xl font-semibold">Weather Today</p>
       </div>
       {/* =========== unit side ============= */}
-      <Select>
+      <Select onValueChange={handleValueChange}>
         <SelectTrigger className="w-[140px] bg-transparentBlack border border-gray-700">
           <SelectValue placeholder="🔅 Units" className="text-textGray" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="celcius">Celcius (&deg;C)</SelectItem>
+            <SelectItem value="celsius">Celsius (&deg;C)</SelectItem>
             <SelectItem value="fahrenheit">Fahrenheit (&deg;F)</SelectItem>
           </SelectGroup>
         </SelectContent>

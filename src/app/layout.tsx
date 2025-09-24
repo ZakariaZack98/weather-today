@@ -3,17 +3,17 @@ import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import Search from "@/components/common/Search";
+import ReduxProvider from "@/redux/ReduxProvider";
 
 const RobotoSans = Roboto({
-  variable: '--font-roboto-sans',
-  subsets: ['latin']
-})
+  variable: "--font-roboto-sans",
+  subsets: ["latin"],
+});
 
 const InterSans = Inter({
-  variable: '--font-inter',
-  subsets: ['latin']
-})
-
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Weather Today - Home",
@@ -27,13 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${RobotoSans.className} antialiased`}
-      >
-        <div className="w-screen h-screen overflow-hidden bg flex flex-col items-center justify-center text-white">
-          <Header/>
-          <Search/>
-          {children}
-        </div>
+      <body className={`${RobotoSans.className} antialiased`}>
+        <ReduxProvider>
+          <div className="w-screen h-screen overflow-scroll bg flex flex-col items-center justify-center text-white p-20">
+            <Header />
+            <Search />
+            {children}
+          </div>
+        </ReduxProvider>
       </body>
     </html>
   );
