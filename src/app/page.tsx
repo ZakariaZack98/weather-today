@@ -1,9 +1,24 @@
 import CallToSearch from "@/components/home/CallToSearch";
+import DailyForecast from "@/components/home/DailyForecast";
+import HourlyForecast from "@/components/home/HourlyForecast";
+import Overview from "@/components/home/Overview";
 
 export default function Home() {
   return (
-    <div>
-      <CallToSearch/>
-    </div>
+    <main className="w-full">
+      <div className="container mx-auto grid grid-cols-12 gap-6 items-stretch ">
+        {/* =========================== Left side: Current and daily forecast ========================= */}
+        <div className="col-span-8">
+          <div className="flex flex-col gap-6">
+            <Overview/>
+            <DailyForecast/>
+          </div>
+        </div>
+        {/* ================================ Right side: Hourly forecast ============================== */}
+        <div className="col-span-4">
+          <HourlyForecast/>
+        </div>
+      </div>
+    </main>
   );
 }
