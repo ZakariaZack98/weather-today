@@ -1,3 +1,4 @@
+import { DayType } from "@/types/day"
 import { HourlyForecastDataType } from "@/types/hourlyForecastData"
 
 /**
@@ -8,10 +9,10 @@ import { HourlyForecastDataType } from "@/types/hourlyForecastData"
  *
  * @param {HourlyForecastDataType[]} forecastList - Array of hourly forecast objcts from OpenWeatherMap api responsee
  *
- * @returns {Record<string, HourlyForecastDataType[]>} An object where each key is a date label
+ * @returns {Record<DayType, HourlyForecastDataType[]>} An object where each key is a date label
  * ("Today", "Tomorrow", or weekday name), and the value is an array of forecast entries for that day.
  */
-export const groupForecastByDay = (forecastList: HourlyForecastDataType[]): Record<string, HourlyForecastDataType[]> => {
+export const groupForecastByDay = (forecastList: HourlyForecastDataType[]): Record<DayType, HourlyForecastDataType[]> => {
   const grouped: Record<string, HourlyForecastDataType[]> = {}
 
   const today = new Date()

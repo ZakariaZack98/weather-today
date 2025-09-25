@@ -1,0 +1,10 @@
+export type DayType =
+  | 'Today'
+  | 'Tomorrow'
+  | 'Sunday'
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'

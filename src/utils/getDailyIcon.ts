@@ -11,11 +11,10 @@ const WEATHER_PRIORITY: string[] = [
 
 /**
  * TODO: Determine the dominant weather icon for a given day's forecast data.
- * Prioritizes conditions based on WEATHER_PRIORITY and returns the icon code
- * of the first matching condition found in the day's forecast entries.
+ * Prioritizes conditions based on WEATHER_PRIORITY and returns the icon code as string of the first matching condition found in the day's forecast entries.
  *
- * @param {HourlyForecastDataType[]} dailyData - Array of 3-hour step forecast entries for a single day.
- * @returns {{ icon: string }} An object containing the dominant weather icon code (e.g., "10d", "01n").
+ * @param {HourlyForecastDataType[]} dailyData - Array of forecast chunks of a certain day
+ * @returns {{ icon: string }} An object containing the dominant weather icon code
  */
 export const GetDailyIcon = (
   dailyData: HourlyForecastDataType[]

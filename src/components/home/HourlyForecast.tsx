@@ -1,42 +1,66 @@
-import React from 'react'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+'use client'
+import React, { useEffect, useState } from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select'
 import HourlyForecastCard from '../common/HourlyForecastCard'
+import { groupForecastByDay } from '@/utils/groupForecastByDate'
+import { useAppSelector } from '@/redux/hooks'
+import { HourlyForecastDataType } from '@/types/hourlyForecastData'
+import { DayType } from '@/types/day'
 
 const HourlyForecast = () => {
-  //mockdata
-  const mock = [1,2,3,4,5,6,7,8]
+  const [day, setDay] = useState<DayType>('Today')
+  const forecastData = useAppSelector((state) => state.weather.hourlyForecastData)
+  const [groupedForecastDataByDate, setGroupedForecastDataByDate] = useState<Partial<Record<DayType, HourlyForecastDataType[]>>>({})
 
+  useEffect(() => {
+    if (forecastData) {
+      setGroupedForecastDataByDate(groupForecastByDay(forecastData))
+    }
+  }, [forecastData])
+
+  const selectedDaysForecast = groupedForecastDataByDate[day] ?? []
+
+  const handleDayChange = (value: DayType) => {
+    setDay(value)
+  }
 
   return (
-    <div className='p-6 rounded-2xl bg-transparentBlack h-full flex flex-col gap-4'>
+    <div className="p-6 rounded-2xl bg-transparentBlack h-full flex flex-col gap-4">
       {/*  ================================= heading and dropdown ================================== */}
       <div className="flex justify-between items-center">
         <h5 className="font-bold text-lg">Daily forecast</h5>
-        <Select>
+        <Select onValueChange={handleDayChange}>
           <SelectTrigger className="w-[140px] bg-transparentBlack border border-gray-700">
             <SelectValue placeholder="Today" className="text-textGray" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="sunday">Sunday</SelectItem>
-              <SelectItem value="monday">Monday</SelectItem>
-              <SelectItem value="tuesday">Tuesday</SelectItem>
-              <SelectItem value="wednesday">Wednesday</SelectItem>
-              <SelectItem value="thursday">Thursday</SelectItem>
-              <SelectItem value="friday">Friday</SelectItem>
-              <SelectItem value="saturday">Saturday</SelectItem>
+              {Object.keys(groupedForecastDataByDate).map((dayName) => (
+                <SelectItem key={dayName} value={dayName}>
+                  {dayName}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
+
       <div>
-        {
-        mock.map((item, idx, arr) => (
-          <div key={item} className={`${idx < arr.length - 1 ? 'border-b border-gray-700': ''}`}>
-            <HourlyForecastCard/>
+        {selectedDaysForecast.map((chunk, idx, arr) => (
+          <div
+            key={chunk.dt}
+            className={`${idx < arr.length - 1 ? 'border-b border-gray-700' : ''}`}
+          >
+            <HourlyForecastCard forecastChunk={chunk} />
           </div>
-        ))
-      }
+        ))}
       </div>
     </div>
   )

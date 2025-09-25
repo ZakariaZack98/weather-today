@@ -1,13 +1,17 @@
+import { HourlyForecastDataType } from '@/types/hourlyForecastData'
+import { getHourLabelFromTimestamp } from '@/utils/getHourFromTimestamp'
 import React from 'react'
 
-const HourlyForecastCard = () => {
+const HourlyForecastCard = ({forecastChunk}: {forecastChunk: HourlyForecastDataType}) => {
   return (
     <div className='flex justify-between items-center text-sm h-12'>
       <div className="flex items-center gap-x-5">
-        <span>{`☁️`}</span>
-        <p>{`5AM`}</p>
+        <picture>
+          <img src={`https://openweathermap.org/img/wn/${forecastChunk.weather[0].icon}.png`} alt="weather_icon" />
+        </picture>
+        <p>{getHourLabelFromTimestamp(forecastChunk.dt)}</p>
       </div>
-      <p>{`20`}&deg;</p>
+      <p>{Math.round(forecastChunk.main.temp)}&deg;</p>
     </div>
   )
 }
