@@ -1,4 +1,5 @@
 import { LocationType } from '@/types/location';
+import axios from 'axios';
 import { useState, useEffect } from 'react'
 
 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
@@ -21,15 +22,11 @@ export function useLocationSuggestions(searchTerm: string, debounceDelay = 300) 
       setError(null)
 
       try {
-        const res = await fetch(
-          `https://api.openweathermap.org/geo/1.0/direct?q=${searchTerm}&limit=5&appid=${apiKey}`,
-          { signal: controller.signal }
-        )
+        const response = await axios.get<LocationType[]>(`https://api.openweathermap.org/geo/1.0/direct?q=${searchTerm}&limit=5&appid=${apiKey}`,
+        { signal: controller.signal }
+    );
 
-        if (!res.ok) throw new Error('Failed to fetch suggestions')
-
-        const result = await res.json()
-        setData(result)
+    setData(response.data);
       } catch (err: any) {
         if (err.name !== 'AbortError') {
           setError(err.message || 'Unknown error')

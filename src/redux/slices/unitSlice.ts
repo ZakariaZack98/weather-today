@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export type UnitType = 'celsius' | 'fahrenheit'
+export type UnitType = 'metric' | 'imperial'
 
 interface UnitState {
   value: UnitType
 }
 
 const initialState: UnitState = {
-  value: 'celsius',
+  value: 'metric',
 }
 
 const unitSlice = createSlice({
@@ -18,7 +18,7 @@ const unitSlice = createSlice({
       state.value = action.payload
     },
     toggleUnit: (state) => {
-      state.value = state.value === 'celsius' ? 'fahrenheit' : 'celsius'
+      state.value = state.value === 'metric' ? 'imperial' : 'metric'
     },
   },
 })

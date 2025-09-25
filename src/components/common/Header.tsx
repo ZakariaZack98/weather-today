@@ -39,8 +39,8 @@ const Header = () => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="celsius">Celsius (&deg;C)</SelectItem>
-            <SelectItem value="fahrenheit">Fahrenheit (&deg;F)</SelectItem>
+            <SelectItem value="metric">Metric</SelectItem>
+            <SelectItem value="imperial">Imperial</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
