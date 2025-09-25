@@ -4,10 +4,10 @@ import { getFormattedTodayDate } from "@/utils/getFormattedDate.utils";
 import React from "react";
 
 const CurrentWeatherDisplay = () => {
-  const { locationName, currentWeatherData, status, error } = useAppSelector(state => state.weather);
+  const { locationName, currentWeatherData } = useAppSelector(state => state.weather);
   const unit = useAppSelector(state => state.unit.value);
 
-  const otherData = [
+  const statisticsData = [
     {
       label: 'Feels Like',
       value: Math.round(currentWeatherData?.main.feels_like ?? 0),
@@ -49,10 +49,10 @@ const CurrentWeatherDisplay = () => {
           <h1 className="font-light text-5xl md:text-7xl">{Math.round(currentWeatherData?.main.temp ?? 0)}&deg;</h1>
         </div>
       </div>
-      {/* ========================== Other updates ================================= */}
+      {/* ========================== Weather statistics ================================= */}
       <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4">
         {
-          otherData?.map(data => (
+          statisticsData?.map(data => (
             <div key={data.label} className="p-3 2xl:p-4 rounded-2xl bg-transparentBlack flex flex-col gap-2">
               <p className="sm:text-sm text-xs text-textGray">{data.label}</p>
               <h5 className="text-sm sm:text-xl 2xl:text-2xl">{data.value}{data.suffix}</h5>

@@ -19,7 +19,7 @@ const Header = () => {
 
   const handleValueChange = (value: UnitType) => {
     dispatch(setUnit(value))
-    dispatch(fetchAllWeatherData({locationQuery: locationName.split(',')[0], metric: value}))
+    dispatch(fetchAllWeatherData({locationQuery: locationName.split(',')[0], unitSystem: value}))
   }
 
   return (

@@ -53,6 +53,13 @@ const HourlyForecast = () => {
       </div>
       {/*  ======================================= forecast list ======================================= */}
       <div>
+        {
+          selectedDaysForecast.length === 0 && (
+            <div className='w-full h-100 flex justify-center items-center rounded-xl bg-transparentBlack text-center text-textGray text-sm md:text-base'>
+              <p>No forecast left for Today. <br /> Please check Tomorrow's forecast.</p>
+            </div>
+          )
+        }
         {selectedDaysForecast.map((chunk, idx, arr) => (
           <div
             key={chunk.dt}

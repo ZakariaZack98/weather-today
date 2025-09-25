@@ -18,7 +18,7 @@ const LocationResultCard = ({ locationData }: { locationData: LocationType }) =>
 
   //* Fetches weather data for the given location and unit system and adds the location to the recent search list
   const fetchWeatherByLocation = (): void => {
-    dispatch(fetchAllWeatherData({ locationQuery: name, metric: unit }));
+    dispatch(fetchAllWeatherData({ locationQuery: name, unitSystem: unit }));
     dispatch(setLocationName(fullLocationName))
     addLocation((fullLocationName));
   }

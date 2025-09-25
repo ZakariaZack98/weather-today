@@ -10,24 +10,32 @@ import { HourlyForecastDataType } from "@/types/hourlyForecastData";
  * @returns {CurrentWeatherDataType, HourlyForecastDataType[]} current weather data and an array of hourly forecast data
  * @rejects with rejectvalue if any error occurs
  */
-export const fetchAllWeatherData = createAsyncThunk<{ currentWeatherData: CurrentWeatherDataType | null; hourlyForecastData: HourlyForecastDataType[] | null; }, { locationQuery: string; metric: string }, { rejectValue: { message: string } }> (
+export const fetchAllWeatherData = createAsyncThunk<
+  {
+    currentWeatherData: CurrentWeatherDataType | null;
+    hourlyForecastData: HourlyForecastDataType[] | null;
+  },
+  { locationQuery: string; unitSystem: string },
+  { rejectValue: { message: string } }
+>(
   "weather/fetchAllWeatherData",
-  async ({ locationQuery, metric }, thunkAPI) => {
+  async ({ locationQuery, unitSystem }, thunkAPI) => {
     try {
-      const results = await Promise.allSettled([
-        FetchCurrentWeather(locationQuery, metric),
-        FetchHourlyForecast(locationQuery, metric),
+      const [currentRes, hourlyRes] = await Promise.all([
+        FetchCurrentWeather(locationQuery, unitSystem),
+        FetchHourlyForecast(locationQuery, unitSystem),
       ]);
 
-      const [weatherResult, hourlyResult] = results;
+      if (!currentRes || (currentRes as any).cod === 404) {
+        throw new Error("City not found");
+      }
 
       return {
-        currentWeatherData: weatherResult.status === "fulfilled" ? weatherResult.value : null,
-        hourlyForecastData: hourlyResult.status === "fulfilled" ? hourlyResult.value?.list ?? null : null,
+        currentWeatherData: currentRes,
+        hourlyForecastData: hourlyRes?.list ?? null,
       };
-      
     } catch (err: any) {
-      return thunkAPI.rejectWithValue({ message: err.message });
+      return thunkAPI.rejectWithValue({ message: err.message || "Failed to fetch weather data" });
     }
   }
 );

@@ -12,28 +12,29 @@ import { HourlyForecastDataType } from "@/types/hourlyForecastData"
  * @returns {Record<DayType, HourlyForecastDataType[]>} An object where each key is a date label
  * ("Today", "Tomorrow", or weekday name), and the value is an array of forecast entries for that day.
  */
-export const groupForecastByDay = (forecastList: HourlyForecastDataType[]): Record<DayType, HourlyForecastDataType[]> => {
+export const groupForecastByDay = (
+  forecastList: HourlyForecastDataType[]
+): Record<DayType, HourlyForecastDataType[]> => {
   const grouped: Record<string, HourlyForecastDataType[]> = {}
 
   const today = new Date()
-  const todayDateStr = today.toISOString().split('T')[0]
+  const todayDateStr = today.toLocaleDateString('en-CA') 
+
+  const tomorrow = new Date(today)
+  tomorrow.setDate(today.getDate() + 1)
+  const tomorrowDateStr = tomorrow.toLocaleDateString('en-CA')
 
   forecastList.forEach((item) => {
-    const date = new Date(item.dt * 1000)
-    const dateStr = date.toISOString().split('T')[0]
+    const localDate = new Date(item.dt * 1000)
+    const dateStr = localDate.toLocaleDateString('en-CA') 
 
     let label: string
-
     if (dateStr === todayDateStr) {
       label = 'Today'
+    } else if (dateStr === tomorrowDateStr) {
+      label = 'Tomorrow'
     } else {
-      const tomorrow = new Date(today)
-      tomorrow.setDate(today.getDate() + 1)
-      const tomorrowDateStr = tomorrow.toISOString().split('T')[0]
-
-      label = dateStr === tomorrowDateStr
-        ? 'Tomorrow'
-        : date.toLocaleDateString('en-US', { weekday: 'long' })
+      label = localDate.toLocaleDateString('en-US', { weekday: 'long' })
     }
 
     if (!grouped[label]) {
