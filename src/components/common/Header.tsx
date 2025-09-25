@@ -10,14 +10,17 @@ import {
 } from "../ui/select";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setUnit, UnitType } from "@/redux/slices/unitSlice";
+import { fetchAllWeatherData } from "@/redux/slices/weatherDataSlice";
 
 const Header = () => {
   const unit = useAppSelector(state => state.unit.value);
+  const {locationName} = useAppSelector(state => state.weather)
   const dispatch = useAppDispatch();
 
   const handleValueChange = (value: UnitType) => {
     dispatch(setUnit(value))
-  } 
+    dispatch(fetchAllWeatherData({locationQuery: locationName.split(',')[0], metric: value}))
+  }
 
   return (
     <header className="container mx-auto flex justify-between items-center w-full">

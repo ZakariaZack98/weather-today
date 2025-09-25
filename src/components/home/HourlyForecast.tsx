@@ -51,7 +51,7 @@ const HourlyForecast = () => {
           </SelectContent>
         </Select>
       </div>
-
+      {/*  ======================================= forecast list ======================================= */}
       <div>
         {selectedDaysForecast.map((chunk, idx, arr) => (
           <div

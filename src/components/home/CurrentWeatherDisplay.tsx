@@ -20,8 +20,8 @@ const CurrentWeatherDisplay = () => {
     },
     {
       label: 'Wind',
-      value: currentWeatherData?.wind.speed,
-      suffix: unit === 'metric' ? 'km/h' : 'm/h'
+      value: unit === 'metric' ? (currentWeatherData?.wind.speed! * 3.6).toFixed(2) : currentWeatherData?.wind.speed,
+      suffix: unit === 'metric' ? 'km/h' : 'mph'
     },
     {
       label: 'Precipitation',

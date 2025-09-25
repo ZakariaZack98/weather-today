@@ -1,0 +1,66 @@
+.animated-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.pulsing-circle {
+  position: absolute;
+  border: 2px solid;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  animation: pulseScale infinite ease-in-out;
+  opacity: 0.3;
+}
+
+.circle-1 {
+  animation-delay: 0s;
+  background-color: rgba(255, 255, 255, 0.356);
+}
+
+.circle-2 {
+  animation-delay: 0.5s;
+  background-color: rgba(255, 255, 255, 0.356);
+}
+
+.search-icon {
+  position: relative;
+  z-index: 10;
+  animation: bounce infinite ease-in-out;
+}
+
+@keyframes pulseScale {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Optional: Add hover effects */
+.animated-search-container:hover .search-icon {
+  animation-duration: 0.5s;
+}
+
+.animated-search-container:hover .pulsing-circle {
+  animation-duration: 1s;
+}
