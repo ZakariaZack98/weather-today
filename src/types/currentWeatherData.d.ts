@@ -1,3 +1,8 @@
+interface RainDataType {
+  '1h'?: number
+  '3h'?: number
+}
+
 export interface CurrentWeatherDataType {
   coord: {
     lon: number
@@ -29,6 +34,7 @@ export interface CurrentWeatherDataType {
   clouds: {
     all: number
   }
+  rain?: RainDataType
   dt: number
   sys: {
     type: number

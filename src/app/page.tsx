@@ -1,7 +1,7 @@
 import CallToSearch from "@/components/home/CallToSearch";
 import DailyForecast from "@/components/home/DailyForecast";
 import HourlyForecast from "@/components/home/HourlyForecast";
-import Overview from "@/components/home/Overview";
+import CurrentWeatherDisplay from "@/components/home/CurrentWeatherDisplay";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         {/* =========================== Left side: Current and daily forecast ========================= */}
         <div className="col-span-8">
           <div className="flex flex-col gap-6 justify-between">
-            <Overview/>
+            <CurrentWeatherDisplay/>
             <DailyForecast/>
           </div>
         </div>

@@ -5,6 +5,11 @@ import { CurrentWeatherDataType } from "@/types/currentWeatherData";
 import { WeatherState } from "@/types/weatherState";
 import { HourlyForecastDataType } from "@/types/hourlyForecastData";
 
+/**
+ * TODO: Fetch both current weather amd forecast for the given location and unit type.
+ * @returns {CurrentWeatherDataType, HourlyForecastDataType[]} current weather data and an array of hourly forecast data
+ * @rejects with rejectvalue if any error occurs
+ */
 export const fetchAllWeatherData = createAsyncThunk<{ currentWeatherData: CurrentWeatherDataType | null; hourlyForecastData: HourlyForecastDataType[] | null; }, { locationQuery: string; metric: string }, { rejectValue: { message: string } }> (
   "weather/fetchAllWeatherData",
   async ({ locationQuery, metric }, thunkAPI) => {
@@ -27,8 +32,22 @@ export const fetchAllWeatherData = createAsyncThunk<{ currentWeatherData: Curren
   }
 );
 
+/**
+ * TODO: Retrieves the recently searched locations from the local storage.
+ ** If the local storage is not available an empty array is returned.
+ * @returns {string[]} An array of recently searched locations.
+ */
+const getRecentSearchLocFromStorage = (): string[] => {
+  if (typeof window !== 'undefined') {
+    const stored = localStorage.getItem('recentSearchLoc')
+    return stored ? JSON.parse(stored) : []
+  }
+  return []
+}
+
+
 const initialState: WeatherState = {
-  recentSearchLoc: [],
+  recentSearchLoc: getRecentSearchLocFromStorage(),
   locationName: "Dhaka, Dhaka Division BD",
   coord: [23.8103, 90.4125],
   currentWeatherData: null,
@@ -49,6 +68,9 @@ const weatherSlice = createSlice({
     },
     setRecentSearchLoc(state, action: PayloadAction<string[]>) {
       state.recentSearchLoc = action.payload;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('recentSearchLoc', JSON.stringify(action.payload))
+      }
     },
   },
   extraReducers: (builder) => {
@@ -67,14 +89,9 @@ const weatherSlice = createSlice({
             currentWeatherData.coord.lon,
           ];
         }
-
         if (currentWeatherData) {
           state.currentWeatherData = currentWeatherData;
-          if (currentWeatherData.name && currentWeatherData.sys?.country) {
-            state.locationName = `${currentWeatherData.name}, ${currentWeatherData.sys.country}`;
-          }
         }
-
         state.hourlyForecastData = hourlyForecastData ?? [];
       })
       .addCase(fetchAllWeatherData.rejected, (state, action) => {
