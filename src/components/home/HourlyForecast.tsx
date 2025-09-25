@@ -32,10 +32,10 @@ const HourlyForecast = () => {
   }
 
   return (
-    <div className="p-6 rounded-2xl bg-transparentBlack h-full flex flex-col gap-4">
+    <div className="p-4 2xl:p-6 rounded-2xl bg-transparentBlack h-full flex flex-col gap-2 2xl:gap-4">
       {/*  ================================= heading and dropdown ================================== */}
       <div className="flex justify-between items-center">
-        <h5 className="font-bold text-lg">Daily forecast</h5>
+        <h5 className="font-bold text-base 2xl:text-lg">Hourly forecast</h5>
         <Select onValueChange={handleDayChange}>
           <SelectTrigger className="w-[140px] bg-transparentBlack border border-gray-700">
             <SelectValue placeholder="Today" className="text-textGray" />
@@ -56,7 +56,7 @@ const HourlyForecast = () => {
         {selectedDaysForecast.map((chunk, idx, arr) => (
           <div
             key={chunk.dt}
-            className={`${idx < arr.length - 1 ? 'border-b border-gray-700' : ''}`}
+            className={`${idx < arr.length - 1 ? 'border-b border-gray-600' : ''}`}
           >
             <HourlyForecastCard forecastChunk={chunk} />
           </div>

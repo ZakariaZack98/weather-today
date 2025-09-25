@@ -23,7 +23,7 @@ const Header = () => {
   }
 
   return (
-    <header className="container mx-auto flex justify-between items-center w-full">
+    <header className="container mx-auto flex justify-between items-center w-full ">
       {/* ============ Logo side ============ */}
       <div className="flex items-center gap-x-3">
         <picture>
@@ -33,7 +33,7 @@ const Header = () => {
             className="h-8 w-8"
           />
         </picture>
-        <p className="text-2xl font-semibold">Weather Today</p>
+        <p className="text-xl sm:text-2xl font-semibold">Weather Today</p>
       </div>
       {/* =========== unit side ============= */}
       <Select onValueChange={handleValueChange}>

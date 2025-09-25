@@ -31,31 +31,31 @@ const CurrentWeatherDisplay = () => {
   ]
 
   return (
-    <div className="flex flex-col gap-6 w-full">
-      <div className="rounded-2xl flex flex-col gap-6 p-8" style={{background: 'linear-gradient(165deg,rgba(41, 98, 235, 1) 0%, rgba(143, 52, 233, 1) 95%)'}}>
+    <div className="flex flex-col gap-4 2xl:gap-6 w-full">
+      <div className="rounded-2xl flex flex-col gap-4 2xl:gap-6 p-4 2xl:p-8" style={{background: 'linear-gradient(165deg,rgba(41, 98, 235, 1) 0%, rgba(143, 52, 233, 1) 95%)'}}>
         {/* ====================== location and date ============================= */}
         <div className="flex justify-between">
           <div className="flex flex-col gap-1">
-            <h4 className="font-semibold text-2xl">{locationName}</h4>
+            <h4 className="font-semibold 2xl:text-2xl text-xl">{locationName}</h4>
             <p className="text-sm text-[#DBEAFE]">{getFormattedTodayDate()}</p>
           </div>
           <span className="text-3xl">📍</span>
         </div>
         {/* ====================== icon and temperature ============================= */}
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <picture>
             <img src={`https://openweathermap.org/img/wn/${currentWeatherData?.weather[0].icon}@2x.png`} alt="" />
           </picture>
-          <h1 className="font-light text-7xl">{Math.round(currentWeatherData?.main.temp ?? 0)}&deg;</h1>
+          <h1 className="font-light text-5xl md:text-7xl">{Math.round(currentWeatherData?.main.temp ?? 0)}&deg;</h1>
         </div>
       </div>
       {/* ========================== Other updates ================================= */}
-      <div className="grid grid-cols-4 w-full gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4">
         {
           otherData?.map(data => (
-            <div key={data.label} className="p-4 rounded-2xl bg-transparentBlack flex flex-col gap-2">
-              <p className="text-sm text-textGray">{data.label}</p>
-              <h5 className="text-2xl">{data.value}{data.suffix}</h5>
+            <div key={data.label} className="p-3 2xl:p-4 rounded-2xl bg-transparentBlack flex flex-col gap-2">
+              <p className="sm:text-sm text-xs text-textGray">{data.label}</p>
+              <h5 className="text-sm sm:text-xl 2xl:text-2xl">{data.value}{data.suffix}</h5>
             </div>
           ))
         }

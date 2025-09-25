@@ -5,7 +5,7 @@ import React from 'react'
 
 const DailyForecastCard = ({forecastDataByDay}: {forecastDataByDay: HourlyForecastDataType[]}) => {
   return (
-    <div className='p-4 bg-transparentBlack flex flex-col justify-between items-center gap-3 text-sm rounded-[12px]'>
+    <div className='2xl:p-4 p-3 bg-transparentBlack flex flex-col justify-between items-center gap-1 2xl:gap-3 text-sm rounded-[12px]'>
       <p className='text-textGray'>{getShortDayName(forecastDataByDay[0])}</p>
       <picture>
         <img src={`https://openweathermap.org/img/wn/${GetDailyIcon(forecastDataByDay).icon}.png`} alt="weather_icon" />

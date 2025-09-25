@@ -5,7 +5,7 @@ const CallToSearch = () => {
   return (
     <div className='py-20 flex flex-col justify-center items-center gap-5'>
       <AnimatedSearchIcon/>
-      <p className='text-textGray text-lg text-center'>Search for a city to see weather information</p>
+      <p className='text-textGray text-base md:text-lg text-center'>Search for a city to see weather information</p>
     </div>
   )
 }

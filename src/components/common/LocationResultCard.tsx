@@ -24,7 +24,7 @@ const LocationResultCard = ({ locationData }: { locationData: LocationType }) =>
   }
   return (
     <div
-      className='p-4 bg-[#000000ce] backdrop-blur-3xl cursor-pointer hover:bg-purple-900 duration-300'
+      className='p-4 bg-[#000000ce] backdrop-blur-3xl cursor-pointer hover:bg-purple-900 duration-300 z-50'
       onClick={fetchWeatherByLocation}
     >
       <p>📍 {fullLocationName}</p>

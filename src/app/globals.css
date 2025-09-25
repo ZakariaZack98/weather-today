@@ -86,8 +86,21 @@
 }
 
 .bg {
-  background: #1F1C4C;
-  background: linear-gradient(145deg, rgba(31, 28, 76, 1) 0%, rgba(88, 28, 135, 1) 46%, rgba(81, 28, 128, 1) 61%, rgba(31, 28, 76, 1) 100%);
+  background: linear-gradient(145deg, rgba(31, 28, 76, 1) 0%, rgb(130, 41, 197) 50%, rgb(119, 42, 185) 60%, rgba(31, 28, 76, 1) 100%);
+  background-size: 150% 150%;
+  animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .dark {
@@ -132,3 +145,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+

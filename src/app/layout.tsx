@@ -29,10 +29,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${RobotoSans.className} antialiased`}>
         <ReduxProvider>
-          <div className="w-screen h-screen overflow-scroll bg flex flex-col items-center justify-center text-white p-20">
-            <Header />
-            <Search />
-            {children}
+          <div className="w-full min-h-screen bg flex flex-col items-center justify-start xl:justify-center text-white ">
+            <div className="w-9/10 lg:container mx-auto py-10 lg:py-5 ">
+              <Header />
+              <Search />
+              {children}
+            </div>
           </div>
         </ReduxProvider>
       </body>

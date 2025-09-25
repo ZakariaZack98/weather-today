@@ -16,10 +16,10 @@ const Search = () => {
   }
 
   return (
-    <div className='container mx-auto flex flex-col items-center justify-center gap-8 my-8'>
-      <h4 className='font-light text-4xl text-center'>How's the sky looking today?</h4>
+    <div className='container mx-auto flex flex-col items-center justify-center gap-8 sm:gap-4 2xl:gap-8 my-10 xl:my-6 2xl:my-8'>
+      <h4 className='font-light text-xl md:text-3xl 2xl:text-4xl text-center'>How's the sky looking today?</h4>
       {/* =====================search area ======================= */}
-      <div className="flex items-center justify-center gap-3 relative w-1/2 mx-auto">
+      <div className="flex items-center justify-center gap-3 relative w-full sm:w-4/5 lg:w-1/2 mx-auto">
         <Input type='text' placeholder='Search for a place' value={searchTerm} className='ps-10 bg-transparentBlack border border-gray-700 h-11 font-inter rounded-[8px]' onChange={e => handleSearchTermChange(e)}/>
         <SearchIcon className='absolute left-3 w-5 text-black top-1/2 -translate-y-[50%]'/>
         {/* ------------ suggestion list ================ */}
@@ -36,7 +36,7 @@ const Search = () => {
           </div>
         }
         </div>}
-        <Button size={'lg'} className='bg-btnBlue rounded-[8px] text-white'>Search</Button>
+        <Button size={'lg'} className='bg-btnBlue rounded-[8px] text-white text-sm sm:text-base'>Search</Button>
       </div>
     </div>
   )
