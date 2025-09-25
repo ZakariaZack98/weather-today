@@ -53,7 +53,7 @@ const CurrentWeatherDisplay = () => {
       <div className="grid grid-cols-4 w-full gap-4">
         {
           otherData?.map(data => (
-            <div className="p-4 rounded-2xl bg-transparentBlack flex flex-col gap-2">
+            <div key={data.label} className="p-4 rounded-2xl bg-transparentBlack flex flex-col gap-2">
               <p className="text-sm text-textGray">{data.label}</p>
               <h5 className="text-2xl">{data.value}{data.suffix}</h5>
             </div>
