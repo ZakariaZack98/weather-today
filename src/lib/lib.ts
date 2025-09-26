@@ -7,11 +7,11 @@ export const WeatherLayers = [
     icon: WiThermometer,
     colors: [
       { range: '< -20°C', color: '#00008B' },     // deep blue
-      { range: '-20°C to 0°C', color: '#0000FF' }, // blue
-      { range: '0°C to 10°C', color: '#00FFFF' },  // cyan
-      { range: '10°C to 20°C', color: '#00FF00' }, // green
-      { range: '20°C to 30°C', color: '#FFFF00' }, // yellow
-      { range: '30°C to 40°C', color: '#FFA500' }, // orange
+      { range: '-20°C - 0°C', color: '#0000FF' }, // blue
+      { range: '0°C - 10°C', color: '#00FFFF' },  // cyan
+      { range: '10°C - 20°C', color: '#00FF00' }, // green
+      { range: '20°C - 30°C', color: '#FFFF00' }, // yellow
+      { range: '30°C - 40°C', color: '#FFA500' }, // orange
       { range: '> 40°C', color: '#FF0000' },       // red
     ]
   },
@@ -63,3 +63,26 @@ export const WeatherLayers = [
     ]
   },
 ]
+
+export const ColorGroups = {
+  temp: [
+    "rgba(252, 236, 0, 0.6)",
+    "rgba(0, 178, 28, 0.48)",
+    "rgba(79, 99, 227, 0.2)",
+  ],
+  wind: [
+    "rgba(125, 179, 235, 0.5)",
+    "rgba(125, 179, 235, 0.5)",
+    "rgba(125, 179, 235, 0)",
+  ],
+  pressure: [
+    "rgba(137, 133, 236, 0.5)",
+    "rgba(137, 133, 236, 0.5)",
+    "rgba(137, 133, 236, 0)",
+  ],
+  visibility: [
+    "rgba(72, 161, 111, 0.5)",
+    "rgba(72, 161, 111, 0.5)",
+    "rgba(72, 161, 111, 0.0)",
+  ],
+};

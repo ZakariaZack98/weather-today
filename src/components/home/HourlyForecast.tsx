@@ -13,6 +13,7 @@ import { groupForecastByDay } from "@/utils/groupForecastByDate";
 import { useAppSelector } from "@/redux/hooks";
 import { HourlyForecastDataType } from "@/types/hourlyForecastData";
 import { DayType } from "@/types/day";
+import { motion } from "framer-motion";
 
 const HourlyForecast = () => {
   const [day, setDay] = useState<DayType>("Today");
@@ -66,14 +67,21 @@ const HourlyForecast = () => {
           </div>
         )}
         {selectedDaysForecast.map((chunk, idx, arr) => (
-          <div
+          <motion.div
             key={chunk.dt}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.4,
+              delay: idx * 0.08, 
+              ease: "easeOut",
+            }}
             className={`${
               idx < arr.length - 1 ? "border-b border-gray-600" : ""
             }`}
           >
             <HourlyForecastCard forecastChunk={chunk} />
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

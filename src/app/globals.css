@@ -85,8 +85,9 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* ===========================Background gradient animation ====================================== */
 .bg {
-  background: linear-gradient(145deg, rgba(31, 28, 76, 1) 0%, rgb(130, 41, 197) 50%, rgb(119, 42, 185) 60%, rgba(31, 28, 76, 1) 100%);
+  background: linear-gradient(145deg, rgba(31, 28, 76, 1) 0%, rgb(130, 41, 197) 35%,  rgb(165, 59, 247) 45%, rgb(119, 42, 185) 55%, rgba(31, 28, 76, 1) 100%);
   background-size: 150% 150%;
   animation: gradientShift 10s ease infinite;
 }
@@ -102,6 +103,7 @@
     background-position: 0% 50%;
   }
 }
+/* ===========================Background gradient animation ====================================== */
 
 .dark {
   --background: oklch(0.145 0 0);

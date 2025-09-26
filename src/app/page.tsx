@@ -20,6 +20,9 @@ const DynamicAnimatePresence = dynamic(
 const WeatherMap = dynamic(() => import("@/components/home/WeatherMap"), {
   ssr: false,
 });
+const StatsChart = dynamic(() => import("@/components/home/StatsChart"), {
+  ssr: false,
+});
 
 
 
@@ -154,8 +157,9 @@ export default function Home() {
             <CallToSearch />
           </motion.div>
         )}
+        {/*  ===============================  Map and chart area ======================================== */}
         {
-        currentWeatherData && <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 object-center object-cover">
+        currentWeatherData && <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch my-10 gap-6 object-center object-cover">
           <div className="col-span-1">
             <motion.div
             key="callToSearch"
@@ -165,6 +169,17 @@ export default function Home() {
             exit="exit"
           >
             <WeatherMap />
+          </motion.div>
+          </div>
+          <div className="col-span-1">
+            <motion.div
+            key="callToSearch"
+            variants={zoomIn(1.2)}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <StatsChart/>
           </motion.div>
           </div>
         </div>

@@ -72,7 +72,7 @@ const WeatherMap = () => {
   if (!coord) return <div>No coordinates available</div>;
 
   return (
-    <div className="relative w-full h-120 rounded-md overflow-hidden my-10">
+    <div className="relative w-full h-100 md:h-120 rounded-md overflow-hidden">
       {/* =============================== Mode Selection Buttons ============================== */}
       <div
         className="mapMode z-50 absolute top-3 right-3 flex flex-col gap-y-2 border border-[rgba(0,0,0,0.3)] bg-white p-1.5"
@@ -101,7 +101,7 @@ const WeatherMap = () => {
       {/* =============================== Map Container ========================================== */}
       <MapContainer
         center={coord as LatLngExpression}
-        zoom={10}
+        zoom={6}
         scrollWheelZoom={false}
         className="w-full h-full"
         style={{ position: "relative", zIndex: 0 }}
@@ -124,7 +124,7 @@ const WeatherMap = () => {
       </MapContainer>
 
       {/*  ===============================   Legends =========================================== */}
-      <div className="legends absolute bottom-3 left-3 border-2 p-3 flex lg:justify-end justify-between md:gap-x-5 2xl:flex-nowrap flex-wrap gap-3 rounded-xl z-50 bg-transparentBlack backdrop-blur-2xl text-xs mx-auto">
+      <div className="legends absolute bottom-0 left-0 md:bottom-3 md:left-3 border-2 p-3 flex lg:justify-end justify-between md:gap-x-5 2xl:flex-nowrap flex-wrap gap-3 rounded-xl z-50 bg-transparentBlack backdrop-blur-2xl text-xs mx-auto">
         {selectedLayer?.colors?.map((color) => (
           <div key={color.color} className="flex gap-x-2">
             <div
