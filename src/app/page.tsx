@@ -24,8 +24,6 @@ const StatsChart = dynamic(() => import("@/components/home/StatsChart"), {
   ssr: false,
 });
 
-
-
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const { currentWeatherData, status, error } = useAppSelector(
@@ -38,9 +36,6 @@ export default function Home() {
   if (typeof window === "undefined" || !isMounted) {
     return null;
   }
-
-  
-
 
   // * Animation variants ==============================================
   const fadeVariant = {

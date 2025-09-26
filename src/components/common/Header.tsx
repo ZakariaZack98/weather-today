@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -10,7 +10,9 @@ import {
 } from "../ui/select";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setUnit, UnitType } from "@/redux/slices/unitSlice";
-import { fetchAllWeatherData } from "@/redux/slices/weatherDataSlice";
+import {
+  fetchAllWeatherData,
+} from "@/redux/slices/weatherDataSlice";
 
 const Header = () => {
   const { locationName } = useAppSelector((state) => state.weather);
@@ -18,13 +20,13 @@ const Header = () => {
 
   const handleValueChange = (value: UnitType) => {
     dispatch(setUnit(value));
-    if(locationName.length > 2) {
+    if (locationName.length > 2) {
       dispatch(
-      fetchAllWeatherData({
-        locationQuery: locationName.split(",")[0],
-        unitSystem: value,
-      })
-    );
+        fetchAllWeatherData({
+          locationQuery: locationName.split(",")[0],
+          unitSystem: value,
+        })
+      );
     }
   };
 
@@ -71,4 +73,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

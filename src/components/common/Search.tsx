@@ -49,44 +49,7 @@ const Search = () => {
     setSearchTerm(capitalizeFirst(e.target.value));
   };
 
-  //TODO: GET THE USERS POSITION USING GEOLOCATION API & UPDATE WEATHER DATA ========================================
-    useEffect(() => {
-      
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (location) => {
-          const { latitude, longitude } = location.coords;
   
-          try {
-            //? reverse geocoding =====================
-            const response = await fetch(
-              `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`
-            );
-            const [place] = await response.json();
-  
-            if (place) {
-              const fullLocationName = `${place.name}, ${place.state ? place.state + ', ' : ''}${place.country}`;
-  
-              dispatch(
-                fetchAllWeatherData({
-                  locationQuery: fullLocationName,
-                  unitSystem: unit,
-                })
-              );
-              dispatch(setLocationName(fullLocationName));
-            }
-          } catch (err) {
-            console.error("Failed to reverse geocode location:", err);
-          }
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  });
 
   //TODO: HANDLE MANUAL SEARCH
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
