@@ -26,6 +26,7 @@ const Search = () => {
   const { data: suggestions, error } = useLocationSuggestions(searchTerm);
   const unit = useAppSelector((state) => state.unit.value);
   const dispatch = useAppDispatch();
+  const {currentWeatherData} = useAppSelector(state => state.weather)
 
   const revealVariants = {
     hidden: {
@@ -55,16 +56,21 @@ const Search = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     setSearchTerm("");
     e.preventDefault();
-    const fullLocationName = `${suggestions[0].name}, ${
+    let fullLocationName = '';
+    if(suggestions.length > 0) {
+      fullLocationName = `${suggestions[0].name}, ${
       suggestions[0].state ? `${suggestions[0].state}, ` : ""
     }${
       countries.getName(suggestions[0].country, "en") || suggestions[0].country
     }`;
+    }
     dispatch(
       fetchAllWeatherData({ locationQuery: searchTerm, unitSystem: unit })
     );
-    dispatch(setLocationName(fullLocationName));
-    addLocation(fullLocationName);
+    if(suggestions) {
+      dispatch(setLocationName(fullLocationName));
+      addLocation(fullLocationName);
+    }
   };
 
   //TODO: HANDLE MANUAL SEARCH (ENTER KEY)

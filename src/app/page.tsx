@@ -74,7 +74,7 @@ export default function Home() {
           </motion.div>
         )}
         {/* ================================ error display ============================== */}
-        {status === "failed" && error && !currentWeatherData && (
+        {status === "failed" && error  && (
           <motion.div
             key="error"
             variants={fadeVariant}
@@ -92,7 +92,7 @@ export default function Home() {
           </motion.div>
         )}
 
-        {currentWeatherData && (
+        {currentWeatherData && status === 'succeeded' && (
           <motion.div
             key="weather"
             initial="hidden"
@@ -156,7 +156,7 @@ export default function Home() {
         )}
         {/*  ===============================  Map and chart area ======================================== */}
         {
-        currentWeatherData && <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch my-10 gap-6 object-center object-cover">
+        currentWeatherData && status === 'succeeded' && <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch my-10 gap-6 object-center object-cover">
           <div className="col-span-1">
             <motion.div
             key="callToSearch"
