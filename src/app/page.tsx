@@ -9,6 +9,7 @@ import { motion, easeOut } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
+//? force rebnder animation on client side ====================================
 const WeatherLoader = dynamic(() => import('@/components/home/WeatherLoader'), {
   ssr: false,
 })
@@ -55,6 +56,7 @@ export default function Home() {
   return (
     <main className="w-full">
       <DynamicAnimatePresence mode="wait">
+        {/*  =========================== loading display =================================== */}
         {status === "loading" && (
           <motion.div
             key="loader"
@@ -66,8 +68,8 @@ export default function Home() {
             <WeatherLoader />
           </motion.div>
         )}
-
-        {status === "failed" && error && (
+        {/* ================================ error display ============================== */}
+        {status === "failed" && error && !currentWeatherData && (
           <motion.div
             key="error"
             variants={fadeVariant}
@@ -93,7 +95,7 @@ export default function Home() {
             exit="hidden"
             className="container mx-auto grid md:grid-cols-1 lg:grid-cols-12 gap-4 2xl:gap-6 items-stretch"
           >
-            {/* Left side */}
+            {/* ================================== Left side ===================================== */}
             <div className="md:col-span-1 lg:col-span-8">
               <div className="flex flex-col gap-4 2xl:gap-6 justify-between">
                 <motion.div
@@ -124,7 +126,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right side */}
+            {/*================================= Right side =====================================*/}
             <motion.div
               variants={zoomIn(0.6)}
               initial="hidden"
@@ -139,7 +141,7 @@ export default function Home() {
         {!currentWeatherData && status === "idle" && (
           <motion.div
             key="callToSearch"
-            variants={fadeVariant}
+            variants={zoomIn(1)}
             initial="hidden"
             animate="visible"
             exit="exit"
