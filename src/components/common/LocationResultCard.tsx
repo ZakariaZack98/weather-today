@@ -10,7 +10,7 @@ import { useRecentSearch } from '@/hooks/useRecentSearch'
 countries.registerLocale(enLocale)
 
 const LocationResultCard = ({ locationData }: { locationData: LocationType }) => {
-  const { name, country, state, lat, lon } = locationData
+  const { name, country, state } = locationData
   const fullLocationName = `${name}, ${state ? `${state}, `: ''}${countries.getName(country, 'en') || country}`;
   const { addLocation } = useRecentSearch();
   const unit = useAppSelector(state => state.unit.value)

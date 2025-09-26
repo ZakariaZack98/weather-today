@@ -4,15 +4,34 @@ import DailyForecast from "@/components/home/DailyForecast";
 import HourlyForecast from "@/components/home/HourlyForecast";
 import CurrentWeatherDisplay from "@/components/home/CurrentWeatherDisplay";
 import { useAppSelector } from "@/redux/hooks";
-import WeatherLoader from "@/components/home/WeatherLoader";
 import DailyForecastMobile from "@/components/home/DailyForecastMobile";
-import { motion, AnimatePresence, easeOut } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+const WeatherLoader = dynamic(() => import('@/components/home/WeatherLoader'), {
+  ssr: false,
+})
+const DynamicAnimatePresence = dynamic(
+  () => import("framer-motion").then((mod) => mod.AnimatePresence),
+  { ssr: false }
+);
 
 export default function Home() {
+  const [isMounted, setIsMounted] = useState(false);
   const { currentWeatherData, status, error } = useAppSelector(
     (state) => state.weather
   );
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (typeof window === "undefined" || !isMounted) {
+    return null;
+  }
+
+
+  // * Animation variants ==============================================
   const fadeVariant = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 },
@@ -20,20 +39,22 @@ export default function Home() {
   };
 
   const zoomIn = (delay: number) => ({
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.4,
-      delay,
-      ease: easeOut,
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        delay,
+        ease: easeOut,
+      },
     },
-  },
-})
+  });
+  // * Animation variants ==============================================
+
   return (
     <main className="w-full">
-      <AnimatePresence mode="wait">
+      <DynamicAnimatePresence mode="wait">
         {status === "loading" && (
           <motion.div
             key="loader"
@@ -126,7 +147,7 @@ export default function Home() {
             <CallToSearch />
           </motion.div>
         )}
-      </AnimatePresence>
+      </DynamicAnimatePresence>
     </main>
   );
 }

@@ -8,7 +8,6 @@ import LocationResultCard from "./LocationResultCard";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   fetchAllWeatherData,
-  setLocationName,
 } from "@/redux/slices/weatherDataSlice";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";

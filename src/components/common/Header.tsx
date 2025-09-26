@@ -13,7 +13,6 @@ import { setUnit, UnitType } from "@/redux/slices/unitSlice";
 import { fetchAllWeatherData } from "@/redux/slices/weatherDataSlice";
 
 const Header = () => {
-  const unit = useAppSelector(state => state.unit.value);
   const {locationName} = useAppSelector(state => state.weather)
   const dispatch = useAppDispatch();
 

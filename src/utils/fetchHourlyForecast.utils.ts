@@ -12,8 +12,10 @@ export const FetchHourlyForecast = async (
   locationQuery: string,
   units: string = 'metric'
 ): Promise<ForecastResponseType> => {
-  const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
-  const baseUrl = process.env.NEXT_PUBLIC_FORECAST_BASE_URL || 'https://api.openweathermap.org/data/2.5/forecast';
+  const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
+  const baseUrl =
+    process.env.NEXT_PUBLIC_FORECAST_BASE_URL ||
+    'https://api.openweathermap.org/data/2.5/forecast'
 
   try {
     const response = await axios.get(baseUrl, {
@@ -25,8 +27,13 @@ export const FetchHourlyForecast = async (
     })
 
     return response.data as ForecastResponseType
-  } catch (err: any) {
-    console.error('Error fetching forecast data:', err.message)
-    throw new Error(err.response?.data?.message || 'Failed to fetch forecast data')
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
+      console.error('Error fetching forecast data:', err.message)
+      throw new Error(err.response?.data?.message || 'Failed to fetch forecast data')
+    } else {
+      console.error('Unexpected error:', err)
+      throw new Error('An unexpected error occurred')
+    }
   }
 }

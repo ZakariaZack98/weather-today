@@ -1,4 +1,4 @@
-// components/loaders/WeatherLoader.tsx
+'use client'
 import { Player } from '@lottiefiles/react-lottie-player'
 const WeatherLoader = () => {
   return (

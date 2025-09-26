@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import Search from "@/components/common/Search";
@@ -10,10 +10,10 @@ const RobotoSans = Roboto({
   subsets: ["latin"],
 });
 
-const InterSans = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+// const InterSans = Inter({
+//   variable: "--font-inter",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Weather Today - Home",
@@ -29,11 +29,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${RobotoSans.className} antialiased`}>
         <ReduxProvider>
-          <div className="w-full min-h-screen overflow-x-hidden bg flex flex-col items-center justify-start xl:justify-center text-white ">
-            <div className="w-9/10 lg:container mx-auto py-10 lg:py-5 ">
+          <div className="w-full min-h-screen overflow-x-hidden bg flex flex-col items-center justify-start xl:justify-center text-white">
+            <div className="w-9/10 lg:container mx-auto py-10 lg:py-5">
               <Header />
               <Search />
-              {children}
+              <div id="page-content">{children}</div>
             </div>
           </div>
         </ReduxProvider>

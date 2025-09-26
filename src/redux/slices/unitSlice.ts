@@ -16,12 +16,9 @@ const unitSlice = createSlice({
   reducers: {
     setUnit: (state, action: PayloadAction<UnitType>) => {
       state.value = action.payload
-    },
-    toggleUnit: (state) => {
-      state.value = state.value === 'metric' ? 'imperial' : 'metric'
-    },
+    }
   },
 })
 
-export const { setUnit, toggleUnit } = unitSlice.actions
+export const { setUnit } = unitSlice.actions
 export default unitSlice.reducer

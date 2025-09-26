@@ -1,5 +1,5 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -7,29 +7,33 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select'
-import HourlyForecastCard from '../common/HourlyForecastCard'
-import { groupForecastByDay } from '@/utils/groupForecastByDate'
-import { useAppSelector } from '@/redux/hooks'
-import { HourlyForecastDataType } from '@/types/hourlyForecastData'
-import { DayType } from '@/types/day'
+} from "../ui/select";
+import HourlyForecastCard from "../common/HourlyForecastCard";
+import { groupForecastByDay } from "@/utils/groupForecastByDate";
+import { useAppSelector } from "@/redux/hooks";
+import { HourlyForecastDataType } from "@/types/hourlyForecastData";
+import { DayType } from "@/types/day";
 
 const HourlyForecast = () => {
-  const [day, setDay] = useState<DayType>('Today')
-  const forecastData = useAppSelector((state) => state.weather.hourlyForecastData)
-  const [groupedForecastDataByDate, setGroupedForecastDataByDate] = useState<Partial<Record<DayType, HourlyForecastDataType[]>>>({})
+  const [day, setDay] = useState<DayType>("Today");
+  const forecastData = useAppSelector(
+    (state) => state.weather.hourlyForecastData
+  );
+  const [groupedForecastDataByDate, setGroupedForecastDataByDate] = useState<
+    Partial<Record<DayType, HourlyForecastDataType[]>>
+  >({});
 
   useEffect(() => {
     if (forecastData) {
-      setGroupedForecastDataByDate(groupForecastByDay(forecastData))
+      setGroupedForecastDataByDate(groupForecastByDay(forecastData));
     }
-  }, [forecastData])
+  }, [forecastData]);
 
-  const selectedDaysForecast = groupedForecastDataByDate[day] ?? []
+  const selectedDaysForecast = groupedForecastDataByDate[day] ?? [];
 
   const handleDayChange = (value: DayType) => {
-    setDay(value)
-  }
+    setDay(value);
+  };
 
   return (
     <div className="p-4 2xl:p-6 rounded-2xl bg-transparentBlack h-full flex flex-col gap-2 2xl:gap-4">
@@ -53,24 +57,27 @@ const HourlyForecast = () => {
       </div>
       {/*  ======================================= forecast list ======================================= */}
       <div>
-        {
-          selectedDaysForecast.length === 0 && (
-            <div className='w-full h-100 flex justify-center items-center rounded-xl bg-transparentBlack text-center text-textGray text-sm md:text-base'>
-              <p>No forecast left for Today. <br /> Please check Tomorrow's forecast.</p>
-            </div>
-          )
-        }
+        {selectedDaysForecast.length === 0 && (
+          <div className="w-full h-100 flex justify-center items-center rounded-xl bg-transparentBlack text-center text-textGray text-sm md:text-base">
+            <p>
+              No forecast left for Today. <br /> Please check Tomorrow&apos;s
+              forecast.
+            </p>
+          </div>
+        )}
         {selectedDaysForecast.map((chunk, idx, arr) => (
           <div
             key={chunk.dt}
-            className={`${idx < arr.length - 1 ? 'border-b border-gray-600' : ''}`}
+            className={`${
+              idx < arr.length - 1 ? "border-b border-gray-600" : ""
+            }`}
           >
             <HourlyForecastCard forecastChunk={chunk} />
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HourlyForecast
+export default HourlyForecast;

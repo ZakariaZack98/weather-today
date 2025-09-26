@@ -26,7 +26,12 @@ export const fetchAllWeatherData = createAsyncThunk<
         FetchHourlyForecast(locationQuery, unitSystem),
       ]);
 
-      if (!currentRes || (currentRes as any).cod === 404) {
+      if (
+        !currentRes ||
+        (typeof currentRes === "object" &&
+          "cod" in currentRes &&
+          currentRes.cod === 404)
+      ) {
         throw new Error("City not found");
       }
 
@@ -34,8 +39,13 @@ export const fetchAllWeatherData = createAsyncThunk<
         currentWeatherData: currentRes,
         hourlyForecastData: hourlyRes?.list ?? null,
       };
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue({ message: err.message || "Failed to fetch weather data" });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        return thunkAPI.rejectWithValue({ message: err.message });
+      }
+      return thunkAPI.rejectWithValue({
+        message: "Failed to fetch weather data",
+      });
     }
   }
 );
@@ -46,13 +56,12 @@ export const fetchAllWeatherData = createAsyncThunk<
  * @returns {string[]} An array of recently searched locations.
  */
 const getRecentSearchLocFromStorage = (): string[] => {
-  if (typeof window !== 'undefined') {
-    const stored = localStorage.getItem('recentSearchLoc')
-    return stored ? JSON.parse(stored) : []
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("recentSearchLoc");
+    return stored ? JSON.parse(stored) : [];
   }
-  return []
-}
-
+  return [];
+};
 
 const initialState: WeatherState = {
   recentSearchLoc: getRecentSearchLocFromStorage(),
@@ -76,8 +85,8 @@ const weatherSlice = createSlice({
     },
     setRecentSearchLoc(state, action: PayloadAction<string[]>) {
       state.recentSearchLoc = action.payload;
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('recentSearchLoc', JSON.stringify(action.payload))
+      if (typeof window !== "undefined") {
+        localStorage.setItem("recentSearchLoc", JSON.stringify(action.payload));
       }
     },
   },
@@ -112,5 +121,6 @@ const weatherSlice = createSlice({
   },
 });
 
-export const { setCoord, setLocationName, setRecentSearchLoc } = weatherSlice.actions;
+export const { setCoord, setLocationName, setRecentSearchLoc } =
+  weatherSlice.actions;
 export default weatherSlice.reducer;

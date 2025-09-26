@@ -20,7 +20,7 @@ const CurrentWeatherDisplay = () => {
     },
     {
       label: 'Wind',
-      value: unit === 'metric' ? (currentWeatherData?.wind.speed! * 3.6).toFixed(2) : currentWeatherData?.wind.speed,
+      value: currentWeatherData?.wind.speed,
       suffix: unit === 'metric' ? 'km/h' : 'mph'
     },
     {
@@ -55,7 +55,7 @@ const CurrentWeatherDisplay = () => {
           statisticsData?.map(data => (
             <div key={data.label} className="p-3 2xl:p-4 rounded-2xl bg-transparentBlack flex flex-col gap-2">
               <p className="sm:text-sm text-xs text-textGray">{data.label}</p>
-              <h5 className="text-sm sm:text-xl 2xl:text-2xl">{data.value}{data.suffix}</h5>
+              <h5 className="text-sm sm:text-xl 2xl:text-2xl">{unit === 'metric' && data.label === 'Wind' ? ((data.value ?? 0) * 3.6).toFixed(2) : (data.value ?? 0)}{data.suffix}</h5>
             </div>
           ))
         }
