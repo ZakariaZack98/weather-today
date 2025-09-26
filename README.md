@@ -85,6 +85,10 @@ These are read by the code in `src/utils/*` and useLocationSuggestions.ts.
 - animations — Lottie JSON assets (used for animated loader).
 - package.json — dependencies & scripts.
 
+## Notes on 7 day forecast
+
+- Openweathermap API free tier only provides upto 5 days of forecast (through 3 hours step chunk) so 5 days forecast is implemented instead of 7 days.
+
 ## Notes on Lottie / Server-side rendering (important troubleshooting)
 
 During build or prerendering you may encounter:

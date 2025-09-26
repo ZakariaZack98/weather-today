@@ -9,7 +9,7 @@ import { motion, easeOut } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-//? force rebnder animation on client side ====================================
+//? force rebnder animation on client side / dyncamic imports ====================================
 const WeatherLoader = dynamic(() => import('@/components/home/WeatherLoader'), {
   ssr: false,
 })
@@ -17,6 +17,11 @@ const DynamicAnimatePresence = dynamic(
   () => import("framer-motion").then((mod) => mod.AnimatePresence),
   { ssr: false }
 );
+const WeatherMap = dynamic(() => import("@/components/home/WeatherMap"), {
+  ssr: false,
+});
+
+
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
@@ -149,6 +154,21 @@ export default function Home() {
             <CallToSearch />
           </motion.div>
         )}
+        {
+        currentWeatherData && <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 object-center object-cover">
+          <div className="col-span-1">
+            <motion.div
+            key="callToSearch"
+            variants={zoomIn(0.9)}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <WeatherMap />
+          </motion.div>
+          </div>
+        </div>
+      }
       </DynamicAnimatePresence>
     </main>
   );
