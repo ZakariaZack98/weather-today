@@ -141,7 +141,7 @@ export default function Home() {
         {!currentWeatherData && status === "idle" && (
           <motion.div
             key="callToSearch"
-            variants={zoomIn(1)}
+            variants={zoomIn(0.6)}
             initial="hidden"
             animate="visible"
             exit="exit"

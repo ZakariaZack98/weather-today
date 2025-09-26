@@ -18,12 +18,14 @@ const Header = () => {
 
   const handleValueChange = (value: UnitType) => {
     dispatch(setUnit(value));
-    dispatch(
+    if(locationName.length > 2) {
+      dispatch(
       fetchAllWeatherData({
         locationQuery: locationName.split(",")[0],
         unitSystem: value,
       })
     );
+    }
   };
 
   return (

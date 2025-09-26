@@ -65,7 +65,7 @@ const getRecentSearchLocFromStorage = (): string[] => {
 
 const initialState: WeatherState = {
   recentSearchLoc: getRecentSearchLocFromStorage(),
-  locationName: "Dhaka, Dhaka Division BD",
+  locationName: "",
   coord: [23.8103, 90.4125],
   currentWeatherData: null,
   hourlyForecastData: [],

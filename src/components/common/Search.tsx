@@ -22,7 +22,7 @@ countries.registerLocale(enLocale);
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState(false);
-  const { recentSearchLoc } = useRecentSearch();
+  const { recentSearchLoc, addLocation } = useRecentSearch();
   const { data: suggestions, error } = useLocationSuggestions(searchTerm);
   const unit = useAppSelector((state) => state.unit.value);
   const dispatch = useAppDispatch();
@@ -49,39 +49,37 @@ const Search = () => {
     setSearchTerm(capitalizeFirst(e.target.value));
   };
 
+  //TODO: HANDLE MANUAL SEARCH
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     setSearchTerm("");
     e.preventDefault();
+    const fullLocationName = `${suggestions[0].name}, ${
+      suggestions[0].state ? `${suggestions[0].state}, ` : ""
+    }${
+      countries.getName(suggestions[0].country, "en") || suggestions[0].country
+    }`;
     dispatch(
       fetchAllWeatherData({ locationQuery: searchTerm, unitSystem: unit })
     );
-    dispatch(
-      setLocationName(
-        `${suggestions[0].name}, ${
-          suggestions[0].state ? `${suggestions[0].state}, ` : ""
-        }${
-          countries.getName(suggestions[0].country, "en") ||
-          suggestions[0].country
-        }`
-      )
-    );
+    dispatch(setLocationName(fullLocationName));
+    addLocation(fullLocationName);
   };
+
+  //TODO: HANDLE MANUAL SEARCH (ENTER KEY)
   const handleEnter = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       setSearchTerm("");
+      const fullLocationName = `${suggestions[0].name}, ${
+        suggestions[0].state ? `${suggestions[0].state}, ` : ""
+      }${
+        countries.getName(suggestions[0].country, "en") ||
+        suggestions[0].country
+      }`;
       dispatch(
         fetchAllWeatherData({ locationQuery: searchTerm, unitSystem: unit })
       );
-      dispatch(
-        setLocationName(
-          `${suggestions[0].name}, ${
-            suggestions[0].state ? `${suggestions[0].state}, ` : ""
-          }${
-            countries.getName(suggestions[0].country, "en") ||
-            suggestions[0].country
-          }`
-        )
-      );
+      dispatch(setLocationName(fullLocationName));
+      addLocation(fullLocationName);
     }
   };
 
