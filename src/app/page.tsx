@@ -3,7 +3,7 @@ import CallToSearch from "@/components/home/CallToSearch";
 import DailyForecast from "@/components/home/DailyForecast";
 import HourlyForecast from "@/components/home/HourlyForecast";
 import CurrentWeatherDisplay from "@/components/home/CurrentWeatherDisplay";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import DailyForecastMobile from "@/components/home/DailyForecastMobile";
 import { motion, easeOut } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -38,6 +38,8 @@ export default function Home() {
   if (typeof window === "undefined" || !isMounted) {
     return null;
   }
+
+  
 
 
   // * Animation variants ==============================================
