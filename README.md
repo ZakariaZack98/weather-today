@@ -74,6 +74,8 @@ These are read by the code in `src/utils/*` and useLocationSuggestions.ts.
 - State management — Redux Toolkit with slices in slices and typed hooks in hooks.ts.
 - Typescript — project uses typed declarations in types.
 - Responsive & accessible UI — tailwind-based layout and components under components.
+- Weather Map (Leaflet) — interactive map showing current coordinates + OpenWeather tile layers
+- Statistics Chart (Chart.js / react-chartjs-2) — line charts for hourly statistics and optional secondary series (e.g., feels-like or gusts)
 
 ## Project structure (high-level)
 
@@ -88,6 +90,16 @@ These are read by the code in `src/utils/*` and useLocationSuggestions.ts.
 ## Notes on 7 day forecast
 
 - Openweathermap API free tier only provides upto 5 days of forecast (through 3 hours step chunk) so 5 days forecast is implemented instead of 7 days.
+
+## Implementation notes (Map and Chart)
+Leaflet & Next.js
+
+- Leaflet manipulates DOM and must be used from client components only.
+- Marker icon images are loaded from images. If markers are missing, ensure the images exist there and Leaflet default icon options are correctly configured.
+- Map center coordinates are read from Redux state (state.weather.coord). The component guards against missing coords.
+Chart behavior
+- LineChart supports an optional secondary dataset. Current behavior shows the secondary line only for certain activeMode values (e.g., "Overview" and "Wind") — check LineChart.tsx for the conditional that adds the secondary dataset to datasets.
+- Chart gradients and color groups are defined in lib.ts.
 
 ## Notes on Lottie / Server-side rendering (important troubleshooting)
 
