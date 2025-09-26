@@ -86,7 +86,7 @@ const Search = () => {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-  }, [dispatch, unit]);
+  });
 
   //TODO: HANDLE MANUAL SEARCH
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
